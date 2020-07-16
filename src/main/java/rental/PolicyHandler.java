@@ -23,7 +23,7 @@ public class PolicyHandler{
 
         if(scheduleFixed.isMe()){
             Assign assign = new Assign();
-            assign.setOrderId(scheduleFixed.getId());
+            assign.setOrderId(scheduleFixed.getOrderId());
             assign.setUserId("A0001");
             assign.setCheckDate(scheduleFixed.getCheckDate());
             assign.setStatus(assign.getUserId() + " : schedule assigned!");
