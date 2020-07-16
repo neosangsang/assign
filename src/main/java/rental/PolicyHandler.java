@@ -42,7 +42,7 @@ public class PolicyHandler{
             Optional<Assign> optional = assignRepository.findById(orderCanceled.getId());
             if(optional.isPresent()) {
                 assign = optional.get();
-                assign.setId(orderCanceled.getId());
+                //assign.setId(orderCanceled.getId());
                 assign.setStatus("assign canceled");
                 assignRepository.save(assign);
                 System.out.println("##### listener Assign : " + orderCanceled.toJson());
