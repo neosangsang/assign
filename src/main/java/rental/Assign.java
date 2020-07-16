@@ -37,7 +37,6 @@ public class Assign {
 
         rental.external.User user = new rental.external.User();
         // mappings goes here
-        //결재 요청 후 kafka
         user.setUserId(getUserId());
         user.setStatus("assigned");
         AssignApplication.applicationContext.getBean(rental.external.UserService.class)
