@@ -8,6 +8,8 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PolicyHandler{
     @Autowired
@@ -26,10 +28,28 @@ public class PolicyHandler{
             assign.setOrderId(scheduleFixed.getOrderId());
             assign.setUserId("A0001");
             assign.setCheckDate(scheduleFixed.getCheckDate());
-            assign.setStatus(assign.getUserId() + " : schedule assigned!");
+            assign.setStatus("schedule assigned!");
             assignRepository.save(assign);
-            System.out.println("##### listener Assign : " + scheduleFixed.toJson());
+            System.out.println("##### listener Assign 11 : " + scheduleFixed.toJson());
         }
     }
+/*
+    @StreamListener(KafkaProcessor.INPUT)
+    public void wheneverOrderCanceled_Assign(@Payload OrderCanceled orderCanceled){
+
+        if(orderCanceled.isMe()){
+            Assign assign = null;
+            Optional<Assign> optional = assignRepository.findById(orderCanceled.getId());
+            if(optional.isPresent()) {
+                assign = optional.get();
+                assign.setId(orderCanceled.getProductId());
+                assign.setStatus("assign canceled");
+                assignRepository.save(assign);
+                System.out.println("##### listener Assign : " + orderCanceled.toJson());
+            }else
+                System.out.println("##### listener Assign : null ");
+        }
+    }
+*/
 }
 
