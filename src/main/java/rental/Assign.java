@@ -15,7 +15,7 @@ public class Assign {
     private Long orderId;
     private String checkDate;
     private String status;
-
+/*
     @PostPersist
     public void onPostPersist(){
         Assigned assigned = new Assigned();
@@ -25,6 +25,24 @@ public class Assign {
 
     }
 
+ */
+    @PostPersist
+    public void onPostPersist(){
+        Assigned assigned = new Assigned();
+        BeanUtils.copyProperties(this, assigned);
+        assigned.publishAfterCommit();
+
+        //Following code causes dependency to external APIs
+        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
+
+        rental.external.User user = new rental.external.User();
+        // mappings goes here
+        //결재 요청 후 kafka
+        user.setUserId(getUserId());
+        user.setStatus("assigned");
+        AssignApplication.applicationContext.getBean(rental.external.UserService.class)
+                .manage(user);
+    }
 
     public Long getId() {
         return id;
