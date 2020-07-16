@@ -26,14 +26,14 @@ public class PolicyHandler{
         if(scheduleFixed.isMe()){
             Assign assign = new Assign();
             assign.setOrderId(scheduleFixed.getOrderId());
-            assign.setUserId("A0001");
+            assign.setUserId("Kim");
             assign.setCheckDate(scheduleFixed.getCheckDate());
             assign.setStatus("schedule assigned!");
             assignRepository.save(assign);
             System.out.println("##### listener Assign 11 : " + scheduleFixed.toJson());
         }
     }
-/*
+
     @StreamListener(KafkaProcessor.INPUT)
     public void wheneverOrderCanceled_Assign(@Payload OrderCanceled orderCanceled){
 
@@ -42,7 +42,7 @@ public class PolicyHandler{
             Optional<Assign> optional = assignRepository.findById(orderCanceled.getId());
             if(optional.isPresent()) {
                 assign = optional.get();
-                assign.setId(orderCanceled.getProductId());
+                assign.setId(orderCanceled.getId());
                 assign.setStatus("assign canceled");
                 assignRepository.save(assign);
                 System.out.println("##### listener Assign : " + orderCanceled.toJson());
@@ -50,6 +50,6 @@ public class PolicyHandler{
                 System.out.println("##### listener Assign : null ");
         }
     }
-*/
+
 }
 
